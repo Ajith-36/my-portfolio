@@ -9,10 +9,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Contact form endpoint
 app.post("/send", async (req, res) => {
   const { name, email, subject, message } = req.body;
 
-  // PDF உருவாக்கும்
+  // PDF creation
   const doc = new PDFDocument();
   let buffers = [];
   doc.on("data", buffers.push.bind(buffers));
@@ -59,4 +60,6 @@ app.post("/send", async (req, res) => {
   doc.end();
 });
 
-app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
+// PORT binding
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
